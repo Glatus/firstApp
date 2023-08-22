@@ -1,5 +1,5 @@
-import {FlatList, StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import {StatusBar} from 'expo-status-bar';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 const mediaArray = [
   {
@@ -37,26 +37,27 @@ const mediaArray = [
 const App = () => {
   return (
     <>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <FlatList
           data={mediaArray}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
-              <TouchableOpacity>
+              <TouchableOpacity style={styles.item}>
                 <Image
-                  style={{width: 100, height: 100}}
-                  source={{uri: item.thumbnails.w160}}
+                  style={{ width: 100, height: 100 }}
+                  source={{ uri: item.thumbnails.w160 }}
                 />
                 <View>
-                  <Text>{item.title}</Text>
+                  <Text style={styles.title}>{item.title}</Text>
                   <Text>{item.description}</Text>
                 </View>
               </TouchableOpacity>
             );
           }}
+          ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
         />
         <StatusBar style="auto" />
-      </View>
+      </SafeAreaView>
     </>
   );
 };
@@ -64,9 +65,21 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    flexDirection: 'column',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: Platform.OS === 'android' ? 25 : 0
+  },
+  item: {
+    backgroundColor: 'grey',
+    flexDirection: 'row',
+  },
+  itemSeparator: {
+    height: 10,
+  },
+  title: {
+    fontWeight: 'bold'
   },
 });
 
