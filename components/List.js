@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-
+import { FlatList, StyleSheet, View } from 'react-native';
+import ListItem from "./ListItem";
 const mediaArray = [
   {
     key: '0',
@@ -38,20 +38,7 @@ const List = () => {
   return (
     <FlatList
       data={mediaArray}
-      renderItem={({ item }) => {
-        return (
-          <TouchableOpacity style={styles.item}>
-            <Image
-              style={styles.image}
-              source={{ uri: item.thumbnails.w160 }}
-            />
-            <View>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.content}>{item.description}</Text>
-            </View>
-          </TouchableOpacity>
-        );
-      }}
+      renderItem={({ item }) => <ListItem singleMedia={item} />}
       ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
     />
   );
@@ -64,17 +51,6 @@ const styles = StyleSheet.create({
   },
   itemSeparator: {
     height: 10,
-  },
-  image: {
-    width: 100,
-    height: '94%',
-    margin: 5,
-  },
-  title: {
-    fontWeight: 'bold'
-  },
-  content: {
-    width: '15%'
   },
 });
 
