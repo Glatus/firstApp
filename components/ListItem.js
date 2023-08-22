@@ -34,9 +34,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     flexDirection: 'row',
   },
-  itemSeparator: {
-    height: 10,
-  },
   image: {
     width: 100,
     height: '94%',

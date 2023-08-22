@@ -45,10 +45,6 @@ const List = () => {
 };
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: 'green',
-    flexDirection: 'row',
-  },
   itemSeparator: {
     height: 10,
   },
