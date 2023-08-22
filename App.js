@@ -44,12 +44,12 @@ const App = () => {
             return (
               <TouchableOpacity style={styles.item}>
                 <Image
-                  style={{ width: 100, height: 100 }}
+                  style={styles.image}
                   source={{ uri: item.thumbnails.w160 }}
                 />
                 <View>
                   <Text style={styles.title}>{item.title}</Text>
-                  <Text>{item.description}</Text>
+                  <Text style={styles.content}>{item.description}</Text>
                 </View>
               </TouchableOpacity>
             );
@@ -65,21 +65,28 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Platform.OS === 'android' ? 25 : 0
   },
   item: {
-    backgroundColor: 'grey',
+    backgroundColor: 'green ',
     flexDirection: 'row',
   },
   itemSeparator: {
     height: 10,
   },
+  image: {
+    width: 100,
+    height: '94%',
+    margin: 5,
+  },
   title: {
     fontWeight: 'bold'
+  },
+  content: {
+    width: '15%'
   },
 });
 
