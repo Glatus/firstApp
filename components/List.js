@@ -39,7 +39,6 @@ const List = () => {
     <FlatList
       data={mediaArray}
       renderItem={({ item }) => <ListItem singleMedia={item} />}
-      ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
     />
   );
 };
