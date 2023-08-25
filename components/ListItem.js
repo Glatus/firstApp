@@ -19,7 +19,6 @@ const ListItem = ({ singleMedia }) => {
 
 ListItem.propTypes = {
   singleMedia: PropTypes.shape({
-    key: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     thumbnails: PropTypes.shape({
@@ -33,6 +32,7 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: 'green',
     flexDirection: 'row',
+    marginBottom: 5,
   },
   image: {
     width: 100,
