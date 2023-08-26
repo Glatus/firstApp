@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View } from 'react-native';
 
-
 const Header = () => {
   return (
     <View style={styles.container}>
@@ -9,6 +8,7 @@ const Header = () => {
         source={{ uri: 'https://placebeard.it/400x300' }}
         style={styles.banner}
       />
+      <Image source={require('../assets/trash-2.png')} style={styles.icon} />
       <Text style={styles.bannerText}> Tässä on kuvateksti</Text>
     </View>
   );
@@ -33,8 +33,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     padding: 7,
   },
-  image: {
+  icon: {
+    width: 50,
+    height: 50,
     position: 'absolute',
+    right: 0,
+    top: '10%',
   },
 });
 
