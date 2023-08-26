@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { mediaUrl } from '../Utils/app-config';
-
+import styles from './style';
 
 
 const ListItem = ({ singleMedia }) => {
@@ -31,24 +31,5 @@ ListItem.propTypes = {
   }).isRequired,
 };
 
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: 'green',
-    flexDirection: 'row',
-    marginBottom: 5,
-  },
-  image: {
-    width: 100,
-    height: '94%',
-    margin: 5,
-    borderBottomLeftRadius: 50,
-  },
-  title: {
-    fontWeight: 'bold'
-  },
-  content: {
-    height: 100
-  },
-});
 
 export default ListItem;
