@@ -3,12 +3,14 @@ import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { mediaUrl } from '../Utils/app-config';
 
+
+
 const ListItem = ({ singleMedia }) => {
   return (
     <TouchableOpacity style={styles.item}>
       <Image
         style={styles.image}
-        source={{uri: mediaUrl + singleMedia.thumbnails.w160}}
+        source={{ uri: mediaUrl + singleMedia.thumbnails.w160 }}
       />
       <View>
         <Text style={styles.title}>{singleMedia.title}</Text>
@@ -39,12 +41,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: '94%',
     margin: 5,
+    borderBottomLeftRadius: 50,
   },
   title: {
     fontWeight: 'bold'
   },
   content: {
-    width: '15%'
+    height: 100
   },
 });
 

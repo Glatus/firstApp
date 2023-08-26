@@ -14,7 +14,8 @@
     "expo": "~49.0.7",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
-    "react-native": "0.72.4"
+    "react-native": "0.72.4",
+    "react-native-svg": "^13.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.10",
@@ -23,7 +24,8 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.2",
-    "prettier": "^3.0.2"
+    "prettier": "^3.0.2",
+    "react-native-svg-transformer": "^1.1.0"
   },
   "private": true
 }
