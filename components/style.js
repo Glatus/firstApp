@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#232622',
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
     paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
