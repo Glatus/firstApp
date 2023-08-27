@@ -4,12 +4,13 @@ import List from '../components/List';
 import Header from '../components/header';
 import styles from '../components/style';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header style={styles.header} />
-      <List />
+      <List navigation={navigation} />
     </SafeAreaView>
   );
 };
+
 export default Home;

@@ -4,10 +4,14 @@ import PropTypes from 'prop-types';
 import { mediaUrl } from '../Utils/app-config';
 import styles from './style';
 
-
-const ListItem = ({ singleMedia }) => {
+const ListItem = ({ singleMedia, navigation }) => {
   return (
-    <TouchableOpacity style={styles.item}>
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => {
+        navigation.navigate('Single'); // Use navigation directly
+      }}
+    >
       <Image
         style={styles.image}
         source={{ uri: mediaUrl + singleMedia.thumbnails.w160 }}
@@ -29,7 +33,7 @@ ListItem.propTypes = {
     }).isRequired,
     filename: PropTypes.string.isRequired,
   }).isRequired,
+  navigation: PropTypes.object.isRequired,
 };
-
 
 export default ListItem;

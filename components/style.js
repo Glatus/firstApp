@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   banner: {
     width: 400,

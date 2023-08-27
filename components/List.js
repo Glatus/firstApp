@@ -5,12 +5,14 @@ import { useMedia } from "../hook/ApiHooks";
 
 
 
-const List = () => {
+const List = (props) => {
   const { mediaArray } = useMedia();
   return (
     <FlatList
       data={mediaArray}
-      renderItem={({ item }) => <ListItem singleMedia={item} />}
+      renderItem={({ item }) => (
+        <ListItem navigation={props.navigation} singleMedia={item} />
+      )}
     />
   );
 };
