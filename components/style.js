@@ -55,5 +55,13 @@ const styles = StyleSheet.create({
     right: 0,
     top: '10%',
   },
+  // Profile
+  Vcontainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 40,
+  },
 });
 export default styles;
