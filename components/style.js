@@ -62,5 +62,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 40,
   },
+  // Single
+  Simage: {
+    height: 500,
+    width: '100%',
+  },
 });
 export default styles;

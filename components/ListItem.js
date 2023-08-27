@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { mediaUrl } from '../Utils/app-config';
 import styles from './style';
@@ -9,7 +9,7 @@ const ListItem = ({ singleMedia, navigation }) => {
     <TouchableOpacity
       style={styles.item}
       onPress={() => {
-        navigation.navigate('Single'); // Use navigation directly
+        navigation.navigate('Single', { title: singleMedia.title, filename: singleMedia.filename });
       }}
     >
       <Image
