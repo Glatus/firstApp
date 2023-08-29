@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import { MainContext } from '../contexts/MainContext';
 import styles from '../components/style';
-
-
 
 const Login = ({ navigation }) => { // props is needed for navigation
   // TODO: get isLoggedIn and setIsLoggedIn from MainContext
@@ -29,16 +27,21 @@ const Login = ({ navigation }) => { // props is needed for navigation
   );
 };
 const checkToken = async () => {
-  // TODO: save the value of userToken saved in AsyncStorage as userToken
-  const userToken = await AsyncStorage.getItem('userToken');
-  console.log('token', userToken);
-  if (userToken === 'abc') {
-    // TODO if the content of userToken is 'abc'), set isLoggedIn to true and navigate to Tabs
-    isLoggedIn(true);
-    navigation.navigate('Tabs');
+  try {
+    // TODO: save the value of userToken saved in AsyncStorage as userToken
+    const userToken = await AsyncStorage.getItem('userToken');
+    console.log('token', userToken);
+    if (userToken === 'abc') {
+      // TODO if the content of userToken is 'abc'), set isLoggedIn to true and navigate to Tabs
+      setIsLoggedIn(true);
+      navigation.navigate('Tabs');
+    }
+  } catch (error) {
+    console.error('Error reading userToken from AsyncStorage:', error);
   }
-};
 
+};
+// Jonku takia tämä hajotaa kaiken
 useEffect(() => {
   checkToken();
 }, []);

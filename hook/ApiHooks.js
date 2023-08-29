@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { doFetch } from '../Utils/functions';
 import { apiUrl } from '../Utils/app-config';
 
-
-
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
 
