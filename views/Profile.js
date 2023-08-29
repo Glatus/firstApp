@@ -7,9 +7,10 @@ const Profile = ({ navigation }) => {
   // TODO: get isLoggedIn and setIsLoggedIn from MainContext
   let [isLoggedIn, setIsLoggedIn] = useContext(MainContext);
   console.log('profile isLoggedIn', isLoggedIn);
-  const logout = () => {
+  const logout = async () => {
     // TODO: set isLoggedIn to false;
     setIsLoggedIn(false);
+    await AsyncStorage.clear();
   };
   return (
     <SafeAreaView style={styles.container}>

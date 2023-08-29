@@ -84,6 +84,13 @@ const styles = StyleSheet.create({
   },
   Stext: {
     fontSize: 20,
-  }
+  },
+  // Login
+  Lcontainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 export default styles;
