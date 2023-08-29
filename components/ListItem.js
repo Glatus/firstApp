@@ -9,7 +9,7 @@ const ListItem = ({ singleMedia, navigation }) => {
     <TouchableOpacity
       style={styles.item}
       onPress={() => {
-        navigation.navigate('Single', { title: singleMedia.title, filename: singleMedia.filename });
+        navigation.navigate('Single', { title: singleMedia.title, filename: singleMedia.filename, user_id: singleMedia.user_id, description: singleMedia.description, time_added: singleMedia.time_added });
       }}
     >
       <Image
