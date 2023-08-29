@@ -66,10 +66,24 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   // Single
+  Scontainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   Simage: {
     width: screenWidth,
-    height: screenHeight,
+    height: screenHeight / 1.5,
     resizeMode: 'contain',
   },
+  Stitle: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    padding: 5,
+  },
+  Stext: {
+    fontSize: 20,
+  }
 });
 export default styles;
