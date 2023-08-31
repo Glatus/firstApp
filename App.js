@@ -1,25 +1,18 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import List from './components/List';
+import Home from './views/Home';
+import Navigator from './navigators/Navigator';
+import { MainProvider } from './contexts/MainContext';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
-      <List />
-    </SafeAreaView>
+    <>
+      <StatusBar backgroundColor="#48c71e" barStyle="light-content" />
+      <MainProvider>
+        <Navigator></Navigator>
+      </MainProvider>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Platform.OS === 'android' ? 25 : 0
-  },
-});
 
 export default App;

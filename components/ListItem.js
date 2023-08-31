@@ -1,13 +1,20 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
+import { mediaUrl } from '../Utils/app-config';
+import styles from './style';
 
-const ListItem = ({ singleMedia }) => {
+const ListItem = ({ singleMedia, navigation }) => {
   return (
-    <TouchableOpacity style={styles.item}>
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => {
+        navigation.navigate('Single', { title: singleMedia.title, filename: singleMedia.filename, user_id: singleMedia.user_id, description: singleMedia.description, time_added: singleMedia.time_added });
+      }}
+    >
       <Image
         style={styles.image}
-        source={{ uri: singleMedia.thumbnails.w160 }}
+        source={{ uri: mediaUrl + singleMedia.thumbnails.w160 }}
       />
       <View>
         <Text style={styles.title}>{singleMedia.title}</Text>
@@ -19,7 +26,6 @@ const ListItem = ({ singleMedia }) => {
 
 ListItem.propTypes = {
   singleMedia: PropTypes.shape({
-    key: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     thumbnails: PropTypes.shape({
@@ -27,25 +33,7 @@ ListItem.propTypes = {
     }).isRequired,
     filename: PropTypes.string.isRequired,
   }).isRequired,
+  navigation: PropTypes.object.isRequired,
 };
-
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: 'green',
-    flexDirection: 'row',
-    marginBottom: 5
-  },
-  image: {
-    width: 100,
-    height: '94%',
-    margin: 5,
-  },
-  title: {
-    fontWeight: 'bold'
-  },
-  content: {
-    width: '15%'
-  },
-});
 
 export default ListItem;
