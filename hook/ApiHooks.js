@@ -21,4 +21,50 @@ const useMedia = () => {
   useEffect(() => { loadMedia(); }, []);
   return { mediaArray };
 };
-export { useMedia };
+const useAuthentication = () => {
+  const postLogin = async (userCredentials) => { // user credentials format: {username: 'someUsername', password: 'somePassword'}
+    const options = {
+      // TODO: add method, headers and body for sending json data with POST
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(userCredentials),
+    };
+    try {
+      // TODO: use fetch to send request to login endpoint and return the result as json, handle errors with try/catch and response.ok
+      const json = await doFetch(apiUrl + 'login', options);
+      console.log(json);
+      return json;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+  return { postLogin };
+};
+const useUser = () => {
+
+  const getUserByToken = async (token) => {
+    try {
+      const options = {
+        method: 'GET',
+        headers: { 'x-access-token': token },
+      };
+      const response = await fetch(apiUrl + 'users/user', options);
+      const userData = await response.json();
+      if (response.ok) {
+        return userData;
+      } else {
+        throw new Error(userData.message);
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  return { getUserByToken };
+};
+
+
+export { useMedia, useAuthentication, useUser };
