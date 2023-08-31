@@ -27,7 +27,7 @@ const StackScreen = () => {
     <Stack.Navigator>
       {isLoggedIn ? (
         <>
-          <Stack.Screen name="Tabs" component={TabScreen} />
+          <Stack.Screen name="Tabs" component={TabScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Single" component={Single} />
         </>
       ) : (
