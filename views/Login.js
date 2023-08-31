@@ -9,16 +9,36 @@ import PropTypes from 'prop-types';
 import { MainContext } from '../contexts/MainContext';
 import styles from '../components/style';
 
-const Login = ({ navigation }) => { // props is needed for navigation
-  // TODO: get isLoggedIn and setIsLoggedIn from MainContext
+const Login = ({ navigation }) => {
   let [isLoggedIn, setIsLoggedIn] = useContext(MainContext);
   console.log('login isLoggedIn', isLoggedIn);
   const logIn = async () => {
-    // TODO: set isLoggedIn to true;
-    setIsLoggedIn(true);
-    await AsyncStorage.setItem('userToken', 'abc');
-    console.log(setIsLoggedIn);
+    try {
+      setIsLoggedIn(true);
+      await AsyncStorage.setItem('userToken', 'abc');
+    } catch (error) {
+      console.error('Error while logging in:', error);
+    }
   };
+
+
+  const checkToken = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      console.log('token', userToken);
+      if (userToken === 'abc') {
+        setIsLoggedIn(true);
+        navigation.navigate('Tabs');
+      }
+    } catch (error) {
+      console.error('Error reading userToken from AsyncStorage:', error);
+    }
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text>Login</Text>
@@ -26,25 +46,6 @@ const Login = ({ navigation }) => { // props is needed for navigation
     </View>
   );
 };
-const checkToken = async () => {
-  try {
-    // TODO: save the value of userToken saved in AsyncStorage as userToken
-    const userToken = await AsyncStorage.getItem('userToken');
-    console.log('token', userToken);
-    if (userToken === 'abc') {
-      // TODO if the content of userToken is 'abc'), set isLoggedIn to true and navigate to Tabs
-      setIsLoggedIn(true);
-      navigation.navigate('Tabs');
-    }
-  } catch (error) {
-    console.error('Error reading userToken from AsyncStorage:', error);
-  }
-
-};
-// Jonku takia tämä hajotaa kaiken
-useEffect(() => {
-  checkToken();
-}, []);
 
 Login.propTypes = {
   navigation: PropTypes.object,
