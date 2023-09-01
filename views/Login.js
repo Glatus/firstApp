@@ -1,48 +1,36 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
-  View,
   Text,
-  Button,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+  Keyboard,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import { MainContext } from '../contexts/MainContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUser } from '../hook/ApiHooks';
+import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 import styles from '../components/style';
-import { useAuthentication, useUser } from '../hook/ApiHooks';
 
 const Login = ({ navigation }) => {
-  let [isLoggedIn, setIsLoggedIn] = useContext(MainContext);
-  console.log('login isLoggedIn', isLoggedIn);
-
-  const { postLogin } = useAuthentication();
-
-  const logIn = async () => {
-    const data = { username: 'jani', password: 'testpassword' };
-    try {
-      const tokenFromApi = await postLogin(data);
-      await AsyncStorage.setItem('userToken', tokenFromApi.token);
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.error('Error while logging in:', error);
-    }
-  };
-
+  // props is needed for navigation
+  const { setIsLoggedIn, setUser } = useContext(MainContext);
+  const { getUserByToken } = useUser();
 
   const checkToken = async () => {
     try {
-      const userToken = await AsyncStorage.getItem('userToken');
-      console.log('token', userToken);
-
-      if (userToken) {
-        const user = useUser(userToken);
-
-        if (user) {
-          setIsLoggedIn(true);
-          navigation.navigate('Tabs');
-        }
+      const token = await AsyncStorage.getItem('userToken');
+      // hardcoded token validation
+      const userData = await getUserByToken(token);
+      console.log('userdata', userData);
+      if (userData) {
+        setIsLoggedIn(true);
+        setUser(userData);
       }
     } catch (error) {
-      console.error('Error reading userToken from AsyncStorage:', error);
+      console.log('checkToken', error);
     }
   };
 
@@ -51,10 +39,21 @@ const Login = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Login</Text>
-      <Button title="Sign in!" onPress={logIn} />
-    </View>
+    <TouchableOpacity
+      onPress={() => Keyboard.dismiss()}
+      style={{ flex: 1 }}
+      activeOpacity={1}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <Text>Login</Text>
+        <LoginForm />
+        <RegisterForm />
+      </KeyboardAvoidingView>
+    </TouchableOpacity>
+
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { doFetch } from '../Utils/functions';
-import { apiUrl } from '../Utils/app-config';
+import { apiUrl } from '../utils/app-config';
+import { doFetch } from '../utils/functions';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
@@ -8,63 +8,68 @@ const useMedia = () => {
   const loadMedia = async () => {
     try {
       const json = await doFetch(apiUrl + 'media');
-      const imageFile = await Promise.all(
+      // console.log(json);
+      const mediaFiles = await Promise.all(
         json.map(async (item) => {
           const fileData = await doFetch(apiUrl + 'media/' + item.file_id);
+          // console.log('fileData', fileData);
           return fileData;
-        }));
-      setMediaArray(imageFile);
+        }),
+      );
+      // console.log(data);
+      setMediaArray(mediaFiles);
     } catch (error) {
-      console.error('loadMedia failed' + error);
+      console.error('loadMedia failed', error);
     }
   };
-  useEffect(() => { loadMedia(); }, []);
+
+  useEffect(() => {
+    loadMedia();
+  }, []);
+
   return { mediaArray };
 };
+
 const useAuthentication = () => {
-  const postLogin = async (userCredentials) => { // user credentials format: {username: 'someUsername', password: 'somePassword'}
-    const options = {
-      // TODO: add method, headers and body for sending json data with POST
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(userCredentials),
-    };
+  const postLogin = async (user) => {
+    console.log(user);
     try {
-      // TODO: use fetch to send request to login endpoint and return the result as json, handle errors with try/catch and response.ok
-      const json = await doFetch(apiUrl + 'login', options);
-      console.log(json);
-      return json;
+      return await doFetch(apiUrl + 'login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
     } catch (error) {
-      throw new Error(error.message);
+      console.error('postLogin error', error);
     }
   };
+
   return { postLogin };
 };
-const useUser = () => {
 
+const useUser = () => {
   const getUserByToken = async (token) => {
-    try {
-      const options = {
-        method: 'GET',
-        headers: { 'x-access-token': token },
-      };
-      const response = await fetch(apiUrl + 'users/user', options);
-      const userData = await response.json();
-      if (response.ok) {
-        return userData;
-      } else {
-        throw new Error(userData.message);
-      }
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    const options = {
+      method: 'GET',
+      headers: { 'x-access-token': token },
+    };
+    return await doFetch(apiUrl + 'users/user', options);
   };
 
-  return { getUserByToken };
-};
+  const postUser = async (userData) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    };
+    return await doFetch(apiUrl + 'users', options);
+  };
 
+  return { getUserByToken, postUser };
+};
 
 export { useMedia, useAuthentication, useUser };
