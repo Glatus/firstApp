@@ -2,8 +2,7 @@ import React from 'react';
 import { SafeAreaView } from 'react-native';
 import List from '../components/List';
 import styles from '../components/style';
-import { Header } from 'react-native/Libraries/NewAppScreen';
-
+import Header from '../components/Header';
 const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
