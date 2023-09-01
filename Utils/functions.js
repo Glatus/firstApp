@@ -1,9 +1,14 @@
 const doFetch = async (url, options = {}) => {
-  const response = await fetch(url, options)
-  if(!response.ok) {
-    throw new Error('Request failed!')
+  const response = await fetch(url, options);
+  const json = await response.json();
+  if (!response.ok) {
+    const message = json.error
+      ? `${json.message}: ${json.error}`
+      : json.message;
+    throw new Error(message || response.statusText);
   }
-  const json = await response.json()
-  return json
-}
-export {doFetch};
+  return json;
+};
+
+
+export { doFetch };
