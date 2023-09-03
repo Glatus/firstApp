@@ -45,7 +45,6 @@ const useAuthentication = () => {
       console.error('postLogin error', error);
     }
   };
-
   return { postLogin };
 };
 
@@ -72,4 +71,14 @@ const useUser = () => {
   return { getUserByToken, postUser };
 };
 
-export { useMedia, useAuthentication, useUser };
+const useTags = () => {
+  const getProfilePic = async () => {
+    const options = {
+      method: 'GET',
+      headers: { 'x-access-token': token },
+    };
+    return await doFetch(apiUrl + 'users/user', options);
+  };
+};
+
+export { useMedia, useAuthentication, useUser, useTags };
