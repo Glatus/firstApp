@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { apiUrl } from '../utils/app-config';
-import { doFetch } from '../utils/functions';
+import {useEffect, useState} from 'react';
+import {apiUrl} from '../utils/app-config';
+import {doFetch} from '../utils/functions';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
@@ -27,7 +27,7 @@ const useMedia = () => {
     loadMedia();
   }, []);
 
-  return { mediaArray };
+  return {mediaArray};
 };
 
 const useAuthentication = () => {
@@ -46,14 +46,14 @@ const useAuthentication = () => {
     }
   };
 
-  return { postLogin };
+  return {postLogin};
 };
 
 const useUser = () => {
   const getUserByToken = async (token) => {
     const options = {
       method: 'GET',
-      headers: { 'x-access-token': token },
+      headers: {'x-access-token': token},
     };
     return await doFetch(apiUrl + 'users/user', options);
   };
@@ -69,7 +69,18 @@ const useUser = () => {
     return await doFetch(apiUrl + 'users', options);
   };
 
-  return { getUserByToken, postUser };
+  return {getUserByToken, postUser};
 };
 
-export { useMedia, useAuthentication, useUser };
+const useTag = () => {
+  const getFilesByTag = async (tag) => {
+    try {
+      return await doFetch(apiUrl + 'tags/' + tag);
+    } catch (error) {
+      throw new Error('getFilesByTag error', error.message);
+    }
+  };
+  return {getFilesByTag};
+};
+
+export {useMedia, useAuthentication, useUser, useTag};

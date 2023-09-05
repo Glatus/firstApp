@@ -50,6 +50,7 @@ const Login = ({ navigation }) => {
       >
         <Text>Login</Text>
         <LoginForm />
+        <Text>Register</Text>
         <RegisterForm />
       </KeyboardAvoidingView>
     </TouchableOpacity>
