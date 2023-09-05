@@ -65,6 +65,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 40,
   },
+  Pimage: {
+    width: '100%',
+    height: '50%',
+    margin: 5,
+    borderBottomLeftRadius: 50,
+  },
   // Single
   Scontainer: {
     flex: 1,
