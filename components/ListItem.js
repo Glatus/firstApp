@@ -6,6 +6,7 @@ import styles from './style';
 
 const ListItem = ({ singleMedia, navigation }) => {
   return (
+    <Card>
     <TouchableOpacity
       style={styles.item}
       onPress={() => {
@@ -21,6 +22,7 @@ const ListItem = ({ singleMedia, navigation }) => {
         <Text style={styles.content}>{singleMedia.description}</Text>
       </View>
     </TouchableOpacity>
+    </Card>
   );
 };
 
