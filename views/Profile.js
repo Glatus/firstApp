@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState, ScrollView } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
 import { MainContext } from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTag } from '../hook/ApiHooks';
 import { mediaUrl } from '../utils/app-config';
-import { Button, Card } from '@rneui/themed';
-
+import { Button, Card, Icon, ListItem } from '@rneui/themed';
+import ProfileForm from '../components/ProfileForm';
 
 
 const Profile = (props) => {
