@@ -7,7 +7,7 @@ import {
   Keyboard,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {Button} from '@rneui/base';
+import { Button } from '@rneui/base';
 import { MainContext } from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUser } from '../hook/ApiHooks';
@@ -26,6 +26,7 @@ const Login = ({ navigation }) => {
       const token = await AsyncStorage.getItem('userToken');
       // hardcoded token validation
       const userData = await getUserByToken(token);
+      console.log('token', token);
       console.log('userdata', userData);
       if (userData) {
         setIsLoggedIn(true);
@@ -43,13 +44,17 @@ const Login = ({ navigation }) => {
   return (
     <TouchableOpacity
       onPress={() => Keyboard.dismiss()}
-      style={{flex: 1}}
+      style={{ flex: 1 }}
       activeOpacity={1}
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        {toggleRegister ? <RegisterForm /> : <LoginForm />}
+        {toggleRegister ? (
+          <RegisterForm setToggleRegister={setToggleRegister} />
+        ) : (
+          <LoginForm />
+        )}
         <Button
           onPress={() => {
             setToggleRegister(!toggleRegister);

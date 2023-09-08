@@ -1,10 +1,10 @@
-import { View, Text, TextInput } from 'react-native';
+import { Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { useAuthentication } from '../hook/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { MainContext } from '../contexts/MainContext';
-import {Button, Input, Card} from '@rneui/themed';
+import { Button, Input, Card } from '@rneui/themed';
 
 
 const LoginForm = () => {
@@ -32,8 +32,7 @@ const LoginForm = () => {
       setIsLoggedIn(true);
       setUser(loginResponse.user);
     } catch (error) {
-      console.error(error);
-      // TODO: notify user about failed login?
+      Alert.alert('Error', error.message);
     }
   };
 
@@ -43,9 +42,9 @@ const LoginForm = () => {
       <Controller
         control={control}
         rules={{
-          required: {value: true, message: 'is required'},
+          required: { value: true, message: 'is required' },
         }}
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="Username"
             onBlur={onBlur}
@@ -62,9 +61,9 @@ const LoginForm = () => {
         control={control}
         rules={{
           maxLength: 100,
-          required: {value: true, message: 'is required'},
+          required: { value: true, message: 'is required' },
         }}
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <Input
             placeholder="password"
             secureTextEntry

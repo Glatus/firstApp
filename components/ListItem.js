@@ -3,27 +3,27 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { mediaUrl } from '../utils/app-config';
 import styles from './style';
-import {Button, Input, Card} from '@rneui/themed';
+import { Card } from '@rneui/themed';
 
 
 const ListItem = ({ singleMedia, navigation }) => {
   return (
     <Card>
-    <TouchableOpacity
-      style={styles.item}
-      onPress={() => {
-        navigation.navigate('Single', { title: singleMedia.title, filename: singleMedia.filename, user_id: singleMedia.user_id, description: singleMedia.description, time_added: singleMedia.time_added });
-      }}
-    >
-      <Image
-        style={styles.image}
-        source={{ uri: mediaUrl + singleMedia.thumbnails.w160 }}
-      />
-      <View>
-        <Text style={styles.title}>{singleMedia.title}</Text>
-        <Text style={styles.content}>{singleMedia.description}</Text>
-      </View>
-    </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => {
+          navigation.navigate('Single', { title: singleMedia.title, filename: singleMedia.filename, user_id: singleMedia.user_id, description: singleMedia.description, time_added: singleMedia.time_added });
+        }}
+      >
+        <Image
+          style={styles.image}
+          source={{ uri: mediaUrl + singleMedia.thumbnails.w160 }}
+        />
+        <View>
+          <Text style={styles.title}>{singleMedia.title}</Text>
+          <Text style={styles.content}>{singleMedia.description}</Text>
+        </View>
+      </TouchableOpacity>
     </Card>
   );
 };
