@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { mediaUrl } from '../utils/app-config';
 import styles from './style';
+import {Button, Input, Card} from '@rneui/themed';
+
 
 const ListItem = ({ singleMedia, navigation }) => {
   return (
