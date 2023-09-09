@@ -12,11 +12,23 @@ import { MainContext } from '../contexts/MainContext';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const TabScreen = () => {
+const Tabscreen = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="home" color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="person" color={color} />,
+        }}
+      />
     </Tab.Navigator>
   );
 };
