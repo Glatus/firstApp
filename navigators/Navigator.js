@@ -12,7 +12,7 @@ import { MainContext } from '../contexts/MainContext';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Tabscreen = () => {
+const TabScreen = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
