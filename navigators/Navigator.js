@@ -7,6 +7,8 @@ import Profile from '../views/Profile';
 import Single from '../views/Single';
 import Login from '../views/Login';
 import { MainContext } from '../contexts/MainContext';
+import Upload from '../components/upload';
+import { Icon } from '@rneui/base';
 
 
 const Stack = createNativeStackNavigator();
@@ -27,6 +29,13 @@ const TabScreen = () => {
         component={Profile}
         options={{
           tabBarIcon: ({ color }) => <Icon name="person" color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Upload"
+        component={Upload}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="cloud-upload" color={color} />,
         }}
       />
     </Tab.Navigator>

@@ -6,6 +6,7 @@ import { error } from '@babel/eslint-parser/lib/convert/index.cjs';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const loadMedia = async () => {
     try {
@@ -29,7 +30,21 @@ const useMedia = () => {
     loadMedia();
   }, []);
 
-  return { mediaArray };
+  const postMedia = async (mediaData, token) => {
+    setLoading(true);
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-access-token': token,
+      },
+      body: mediaData,
+    };
+    const uploadResult = await doFetch(apiUrl + 'media', options);
+    setLoading(false);
+    return uploadResult;
+  };
+
+  return { mediaArray, postMedia, loading };
 };
 
 const useAuthentication = () => {
