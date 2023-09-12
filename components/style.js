@@ -98,5 +98,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Upload
+  Uimage: {
+    width: '100%',
+    height: undefined,
+    aspectRatio: 1,
+    marginBottom: 15,
+    resizeMode: 'cover',
+  },
 });
 export default styles;

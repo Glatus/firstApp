@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
-import { apiUrl } from '../utils/app-config';
+import { apiUrl, appId } from '../utils/app-config';
 import { doFetch } from '../utils/functions';
 import { error } from '@babel/eslint-parser/lib/convert/index.cjs';
 
 
-const useMedia = () => {
+const useMedia = (update) => {
   const [mediaArray, setMediaArray] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const loadMedia = async () => {
     try {
-      const json = await doFetch(apiUrl + 'media');
+      // all mediafiles
+      // const json = await doFetch(apiUrl + 'media');
+      // files with specific appId
+      const json = await doFetch(apiUrl + 'tags/' + appId);
       // console.log(json);
       const mediaFiles = await Promise.all(
         json.map(async (item) => {
@@ -28,7 +31,11 @@ const useMedia = () => {
 
   useEffect(() => {
     loadMedia();
-  }, []);
+  }, [update]);
+
+  useEffect(() => {
+    loadMedia();
+  }, [update]);
 
   const postMedia = async (mediaData, token) => {
     setLoading(true);
@@ -39,9 +46,14 @@ const useMedia = () => {
       },
       body: mediaData,
     };
-    const uploadResult = await doFetch(apiUrl + 'media', options);
-    setLoading(false);
-    return uploadResult;
+    try {
+      const uploadResult = await doFetch(apiUrl + 'media', options);
+      setLoading(false);
+      return uploadResult;
+    } catch (error) {
+      console.error("postMedia error " + error.message);
+      setLoading(false);
+    }
   };
 
   return { mediaArray, postMedia, loading };

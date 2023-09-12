@@ -7,7 +7,7 @@ import Profile from '../views/Profile';
 import Single from '../views/Single';
 import Login from '../views/Login';
 import { MainContext } from '../contexts/MainContext';
-import Upload from '../components/upload';
+import Upload from '../views/upload';
 import { Icon } from '@rneui/base';
 
 
