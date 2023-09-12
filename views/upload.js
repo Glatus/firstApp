@@ -1,22 +1,24 @@
 import { Card, Input } from '@rneui/themed';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from '@rneui/base';
-import { Alert, StyleSheet } from 'react-native';
+import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { Video } from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useMedia } from '../hook/ApiHooks';
+import { useMedia, useTag } from '../hook/ApiHooks';
 import { MainContext } from '../contexts/MainContext';
 import { placeholderImage, appId } from '../utils/app-config';
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import style from '../components/style';
 
-const Upload = () => {
+const Upload = ({ navigation }) => {
   const { update, setUpdate } = useContext(MainContext);
   const [image, setImage] = useState(placeholderImage);
   const [type, setType] = useState('image');
   const { postMedia, loading } = useMedia();
+  const { postTag } = useTag();
   const {
     control,
     reset,
@@ -27,6 +29,7 @@ const Upload = () => {
       title: '',
       description: '',
     },
+    mode: 'onBlur',
   });
 
   const upload = async (uploadData) => {
@@ -69,9 +72,10 @@ const Upload = () => {
       ]);
     } catch (error) {
       console.log(error.message);
-      Alert.alert("Median lataus epäonnistui!");
+      Alert.alert("Update failed!");
     }
   };
+
   const resetForm = () => {
     setImage(placeholderImage);
     setType('image');
@@ -85,10 +89,9 @@ const Upload = () => {
       aspect: [4, 3],
     });
 
-    // Korjaa sen oudon Cancelled errorin
+    // Korjaa cancelled errorin
     delete result.cancelled;
     console.log(result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
       setType(result.assets[0].type);
@@ -106,7 +109,7 @@ const Upload = () => {
       ) : (
         <Video
           source={{ uri: image }}
-          style={style.image}
+          style={style.Uimage}
           useNativeControls={true}
           resizeMode="cover"
         />
@@ -145,9 +148,22 @@ const Upload = () => {
         name="description"
       />
       <Button title="Choose Media" onPress={pickImage} />
-      <Button title="Reset Form" onPress={resetForm()} />
-      <Button loading={loading} title="Upload" onPress={handleSubmit(upload)} disabled={image == placeholderImage || errors.description || errors.title} />
+      <Button title="Reset" color={'green'} onPress={resetForm} />
+      <Button
+        loading={loading}
+        disabled={
+          image == placeholderImage || errors.description || errors.title
+        }
+        title="Upload"
+        onPress={handleSubmit(upload)}
+      />
     </Card>
   );
 };
+
+
+Upload.propTypes = {
+  navigation: PropTypes.object,
+};
+
 export default Upload;

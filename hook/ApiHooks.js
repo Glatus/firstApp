@@ -32,10 +32,6 @@ const useMedia = (update) => {
     loadMedia();
   }, [update]);
 
-  useEffect(() => {
-    loadMedia();
-  }, [update]);
-
   const postMedia = async (mediaData, token) => {
     setLoading(true);
     const options = {
@@ -117,6 +113,18 @@ const useUser = () => {
 };
 
 const useTag = () => {
+  const postTag = async (tag, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(tag),
+    };
+    return await doFetch(apiUrl + 'tags', options);
+  };
+
   const getFilesByTag = async (tag) => {
     try {
       return await doFetch(apiUrl + 'tags/' + tag);
@@ -124,7 +132,7 @@ const useTag = () => {
       throw new Error('getFilesByTag error', error.message);
     }
   };
-  return { getFilesByTag };
+  return { postTag, getFilesByTag };
 };
 
 export { useMedia, useAuthentication, useUser, useTag };
