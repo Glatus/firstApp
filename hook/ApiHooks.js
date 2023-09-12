@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiUrl, appId } from '../utils/app-config';
 import { doFetch } from '../utils/functions';
-import { error } from '@babel/eslint-parser/lib/convert/index.cjs';
 
 
 const useMedia = (update) => {
