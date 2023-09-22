@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { apiUrl, appId } from '../utils/app-config';
 import { doFetch } from '../utils/functions';
 
-
+// Media
 const useMedia = (update) => {
   const [mediaArray, setMediaArray] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,6 @@ const useMedia = (update) => {
       console.error('loadMedia failed', error);
     }
   };
-
   useEffect(() => {
     loadMedia();
   }, [update]);
@@ -53,7 +52,7 @@ const useMedia = (update) => {
 
   return { mediaArray, postMedia, loading };
 };
-
+// User
 const useAuthentication = () => {
   const postLogin = async (user) => {
     return await doFetch(apiUrl + 'login', {
@@ -121,7 +120,7 @@ const useUser = () => {
 
   return { getUserByToken, postUser, checkUsername, putUser, getUserById };
 };
-
+// Tag
 const useTag = () => {
   const postTag = async (tag, token) => {
     const options = {
@@ -144,5 +143,42 @@ const useTag = () => {
   };
   return { postTag, getFilesByTag };
 };
+// Favorite
+const useFavorite = () => {
+  const postLike = async (id, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(id),
+    };
+    return await doFetch(apiUrl + 'favourites', options);
+  };
+  const removeLike = async (id, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    return await doFetch(apiUrl + 'favourites/file/' + id, options);
+  };
+  const getLikesById = async (id) => {
+    return await doFetch(apiUrl + 'favourites/file/' + id);
+  };
+  const getFavouritesByToken = async (token) => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    return await doFetch(apiUrl + 'favourites', options);
+  };
 
-export { useMedia, useAuthentication, useUser, useTag };
+  return { postLike, removeLike, getLikesById, getFavouritesByToken };
+};
+
+export { useMedia, useAuthentication, useUser, useTag, useFavorite };
