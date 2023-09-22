@@ -57,8 +57,22 @@ const useMedia = (update, myFilesOnly) => {
       setLoading(false);
     }
   };
+  const deleteMedia = async (fileId, token) => {
+    try {
+      const options = {
+        method: 'DELETE',
+        headers: {
+          'x-access-token': token,
+        },
+      };
+      const deleteResult = await doFetch(apiUrl + 'media/' + fileId, options);
+      return deleteResult;
+    } catch (error) {
+      throw new Error('deleteMedia failed: ' + error.message);
+    }
+  };
 
-  return { mediaArray, postMedia, loading };
+  return { mediaArray, postMedia, loading, deleteMedia };
 };
 // User
 const useAuthentication = () => {
