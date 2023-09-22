@@ -1,19 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { apiUrl, appId } from '../utils/app-config';
 import { doFetch } from '../utils/functions';
+import { MainContext } from '../contexts/MainContext';
 
 // Media
-const useMedia = (update) => {
+const useMedia = (update, myFilesOnly) => {
+  const { user } = useContext(MainContext);
   const [mediaArray, setMediaArray] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const loadMedia = async () => {
+  const loadMedia = async (userId) => {
     try {
-      // all mediafiles
-      // const json = await doFetch(apiUrl + 'media');
-      // files with specific appId
-      const json = await doFetch(apiUrl + 'tags/' + appId);
-      // console.log(json);
+      let json;
+      if (userId) {
+        json = await doFetch(apiUrl + 'media/user/' + userId);
+      } else {
+        // all mediafiles
+        // const json = await doFetch(apiUrl + 'media');
+        // files with specific appId
+        json = await doFetch(apiUrl + 'tags/' + appId);
+        // console.log(json);
+        json.reverse();
+      }
       const mediaFiles = await Promise.all(
         json.map(async (item) => {
           const fileData = await doFetch(apiUrl + 'media/' + item.file_id);
@@ -28,7 +36,7 @@ const useMedia = (update) => {
     }
   };
   useEffect(() => {
-    loadMedia();
+    loadMedia(myFilesOnly ? user.user_id : 0);
   }, [update]);
 
   const postMedia = async (mediaData, token) => {

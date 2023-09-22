@@ -1,22 +1,31 @@
-import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native';
 import ListItem from './ListItem';
-import { useMedia } from "../hook/ApiHooks";
-import { MainContext } from '../contexts/MainContext';
+import { useMedia } from '../hook/ApiHooks';
+import PropTypes from 'prop-types';
 import { useContext } from 'react';
+import { MainContext } from '../contexts/MainContext';
 
+const List = ({ navigation, myFilesOnly }) => {
+  const { update, user } = useContext(MainContext);
+  const { mediaArray } = useMedia(update, myFilesOnly);
 
-const List = (props) => {
-  const { update } = useContext(MainContext);
-  const { mediaArray } = useMedia(update);
   return (
     <FlatList
       data={mediaArray}
       renderItem={({ item }) => (
-        <ListItem navigation={props.navigation} singleMedia={item} />
+        <ListItem
+          navigation={navigation}
+          singleMedia={item}
+          userId={user.user_id}
+        />
       )}
     />
   );
+};
+
+List.propTypes = {
+  navigation: PropTypes.object,
+  myFilesOnly: PropTypes.bool,
 };
 
 export default List;

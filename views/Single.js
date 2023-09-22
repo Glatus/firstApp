@@ -65,7 +65,6 @@ const Single = ({ route, navigation }) => {
   const getLikes = async () => {
     try {
       const likesData = await getLikesById(file_id);
-      console.log(likesData);
       setLikes(likesData);
       likesData.forEach((like) => {
         if (like.user_id === user.user_id) {
@@ -87,8 +86,7 @@ const Single = ({ route, navigation }) => {
         <Video style={styles.Simage} source={{ uri: mediaUrl + filename }}
           useNativeControls
           resizeMode={ResizeMode.CONTAIN}
-          isLooping
-        />
+          isLooping />
       ) : (
         <Card.Image style={styles.Simage} source={{ uri: mediaUrl + filename }} />
       )}
