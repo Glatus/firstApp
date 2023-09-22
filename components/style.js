@@ -83,6 +83,9 @@ const styles = StyleSheet.create({
     height: screenHeight / 1.5,
     resizeMode: 'contain',
   },
+  Svideo: {
+
+  },
   Stitle: {
     fontWeight: 'bold',
     fontSize: 30,
