@@ -71,8 +71,24 @@ const useMedia = (update, myFilesOnly) => {
       throw new Error('deleteMedia failed: ' + error.message);
     }
   };
+  const putMedia = async (fileId, token, data) => {
+    try {
+      const options = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token,
+        },
+        body: JSON.stringify(data),
+      };
+      const putResult = await doFetch(apiUrl + 'media/' + fileId, options);
+      return putResult;
+    } catch (error) {
+      throw new Error('putMedia failed: ' + error.message);
+    }
+  };
 
-  return { mediaArray, postMedia, loading, deleteMedia };
+  return { mediaArray, postMedia, loading, deleteMedia, putMedia };
 };
 // User
 const useAuthentication = () => {
