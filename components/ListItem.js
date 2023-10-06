@@ -16,7 +16,7 @@ const ListItem = ({ singleMedia, navigation, userId }) => {
   const { deleteMedia } = useMedia();
   const { update, setUpdate } = useContext(MainContext);
 
-  const deleteFile = async () => {
+  const deleteFile = async () => {  
     Alert.alert('Delete', `file id: ${singleMedia.file_id}, Are your sure?`, [
       {
         text: 'Cancel',

@@ -10,6 +10,7 @@ import { MainContext } from '../contexts/MainContext';
 import Upload from '../views/upload';
 import { Icon, color } from '@rneui/base';
 import MyFiles from '../views/MyFiles';
+import Modify from '../views/modify';
 
 
 const Stack = createNativeStackNavigator();
@@ -58,6 +59,7 @@ const StackScreen = () => {
         <>
           <Stack.Screen name="Tabs" component={TabScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Single" component={Single} />
+          <Stack.Screen name="Modify file" component={Modify} />
         </>
       ) : (
         <Stack.Screen name="Login" component={Login} />
